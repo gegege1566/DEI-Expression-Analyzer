@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
 import { Persona, CheckResult, ChatMessage } from '../types';
+import type { ChatCompletionMessageParam } from 'openai/resources';
 
 export class ChatService {
   private openai: OpenAI | null = null;
@@ -24,8 +25,8 @@ export class ChatService {
     }
 
     // チャット履歴を会話形式で構築
-    const conversationHistory = chatHistory.map(msg => ({
-      role: msg.sender === 'user' ? 'user' : 'assistant',
+    const conversationHistory: ChatCompletionMessageParam[] = chatHistory.map(msg => ({
+      role: msg.sender === 'user' ? 'user' as const : 'assistant' as const,
       content: msg.content
     }));
 
@@ -56,12 +57,14 @@ ${initialResponse ? `
 ユーザーとの対話を続けてください。`;
 
     try {
+      const messages: ChatCompletionMessageParam[] = [
+        { role: 'system', content: systemPrompt },
+        ...conversationHistory,
+        { role: 'user', content: userMessage }
+      ];
+
       const completion = await this.openai.chat.completions.create({
-        messages: [
-          { role: 'system', content: systemPrompt },
-          ...conversationHistory,
-          { role: 'user', content: userMessage }
-        ],
+        messages,
         model: 'gpt-4o-mini',
         temperature: 0.8,
         max_tokens: 200,

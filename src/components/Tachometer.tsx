@@ -41,7 +41,7 @@ export const Tachometer: React.FC<TachometerProps> = ({
     const safeTotal = totalCount || 1;
     const ngRatio = ngCount / safeTotal;
     const grayRatio = grayCount / safeTotal;
-    const okRatio = okCount / safeTotal;
+    // const okRatio = okCount / safeTotal;
     
     // 半円のスケール（-90度から+90度）
     const angleScale = d3.scaleLinear()
@@ -57,10 +57,12 @@ export const Tachometer: React.FC<TachometerProps> = ({
     // 背景弧
     svg.append("path")
       .datum({
+        innerRadius: 60,
+        outerRadius: 90,
         startAngle: -Math.PI/2,
         endAngle: Math.PI/2
       })
-      .attr("d", arc)
+      .attr("d", (d) => arc(d) || '')
       .attr("transform", `translate(${centerX}, ${centerY})`)
       .attr("fill", "#e5e7eb");
     
@@ -68,10 +70,12 @@ export const Tachometer: React.FC<TachometerProps> = ({
     if (ngCount > 0) {
       svg.append("path")
         .datum({
+          innerRadius: 60,
+          outerRadius: 90,
           startAngle: -Math.PI/2,
           endAngle: angleScale(ngRatio) 
         })
-        .attr("d", arc)
+        .attr("d", (d) => arc(d) || '')
         .attr("transform", `translate(${centerX}, ${centerY})`)
         .attr("fill", "#ef4444")
         .style("transition", "all 0.8s ease-in-out");
@@ -81,10 +85,12 @@ export const Tachometer: React.FC<TachometerProps> = ({
     if (grayCount > 0) {
       svg.append("path")
         .datum({
+          innerRadius: 60,
+          outerRadius: 90,
           startAngle: angleScale(ngRatio),
           endAngle: angleScale(ngRatio + grayRatio)
         })
-        .attr("d", arc)
+        .attr("d", (d) => arc(d) || '')
         .attr("transform", `translate(${centerX}, ${centerY})`)
         .attr("fill", "#6b7280")
         .style("transition", "all 0.8s ease-in-out");
@@ -94,10 +100,12 @@ export const Tachometer: React.FC<TachometerProps> = ({
     if (okCount > 0) {
       svg.append("path")
         .datum({
+          innerRadius: 60,
+          outerRadius: 90,
           startAngle: angleScale(ngRatio + grayRatio),
           endAngle: Math.PI/2
         })
-        .attr("d", arc)
+        .attr("d", (d) => arc(d) || '')
         .attr("transform", `translate(${centerX}, ${centerY})`)
         .attr("fill", "#10b981")
         .style("transition", "all 0.8s ease-in-out");

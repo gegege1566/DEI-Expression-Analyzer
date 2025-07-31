@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { personas } from './data/personas';
 import { LLMService } from './utils/llmService';
 import { analyzeResults } from './utils/analysisService';

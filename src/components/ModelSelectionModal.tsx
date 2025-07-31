@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Check, Cpu, DollarSign, Info } from 'lucide-react';
+import { X, Check, Cpu } from 'lucide-react';
 
 interface ModelInfo {
   value: string;
