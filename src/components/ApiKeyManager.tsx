@@ -157,8 +157,9 @@ export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({ onApiKeyChange, cu
           </div>
 
           <div className="text-xs text-gray-500 space-y-1">
-            <p>• APIキーはブラウザのローカルストレージに暗号化して保存されます</p>
-            <p>• このデバイス上でのみ利用可能で、他のデバイスと共有されません</p>
+            <p>• APIキーはブラウザのセッションストレージに暗号化して保存されます</p>
+            <p>• ブラウザのタブを閉じると自動で消去されます</p>
+            <p>• 他のPC、他のブラウザ、他のブラウザ内タブには共有されません</p>
             <p>• OpenAI APIキーは <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">こちら</a> で取得できます</p>
           </div>
         </div>
