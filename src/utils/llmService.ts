@@ -84,7 +84,7 @@ export class LLMService {
       
       if (isReasoningModel) {
         // Responses API for o系モデル（十分なトークン数を最初から確保）
-        const reasoningTokens = Math.max(this.config.maxTokens, 3000); // 十分なトークン数で開始
+        const reasoningTokens = Math.max(this.config.maxTokens, 5000); // 十分なトークン数で開始
         const responsesParams: any = {
           input: [{ role: 'user', content: prompt }],
           model: this.config.model,
